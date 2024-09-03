@@ -33,9 +33,9 @@ jobs:
         kubectl-version: 'latest'
 
     - name: Set up kubeconfig
-      env:
-        KUBECONFIG: ${{ secrets.KUBECONFIG }}
-      run: echo "$KUBECONFIG" > $HOME/.kube/config
+      run: |
+        mkdir -p ~/.kube
+        echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
 
     - name: Verify kubectl version
       run: kubectl version --client
