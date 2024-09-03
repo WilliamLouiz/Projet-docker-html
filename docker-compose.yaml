@@ -1,0 +1,11 @@
+version: '1.0'
+
+services:
+  app:
+    container_name: nginxstatic
+    image: nginxstatic
+    build: 
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "5000:5000"

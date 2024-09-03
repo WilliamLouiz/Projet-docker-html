@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mon-application-html
+spec:
+  selector:
+    matchLabels:
+      app: mon-application-html
+  replicas: 2 # Exécute 2 pods en parallèle
+  template:
+    metadata:
+      labels:
+        app: mon-application-html
+    spec:
+      containers:
+      - name: mon-application-html
+        image: william146/mon-application-html:v1
+        ports:
+        - containerPort: 80
