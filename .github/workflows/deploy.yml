@@ -24,8 +24,24 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t william146/mon-application-html:v1 .
-        docker push william146/mon-application-html:v1
+        docker build -t william146/mon-application-html:latest .
+        docker push william146/mon-application-html:latest
+
+    - name: Set up Kubernetes
+      uses: azure/setup-kubectl@v1
+      with:
+        kubectl-version: 'latest'
+
+    - name: Set up kubeconfig
+      env:
+        KUBECONFIG: ${{ secrets.KUBECONFIG }}
+      run: echo "$KUBECONFIG" > $HOME/.kube/config
+
+    - name: Verify kubectl version
+      run: kubectl version --client
+
+    - name: Verify kubectl configuration
+      run: kubectl config view
 
     - name: Deploy to Kubernetes
       run: |
